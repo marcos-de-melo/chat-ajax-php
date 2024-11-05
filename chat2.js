@@ -5,21 +5,14 @@ window.onload = function(){
 // envia nova mensagem ao servidor
 function EnviaMsg(msg){
 	ExibirMsg("<p><b>VOCÊ:</b> "+msg+"</p>");
-	var url="novaMsg.php?msg="+encodeURIComponent(msg);
+	var url="novaMsg2.php?msg="+encodeURIComponent(msg);
 	document.getElementById("msg").value='';
 	requisicaoHTTP("GET",url,true);
 }
 
 // busca novas mensagens no servidor
 function ChecaMsg(){
-	requisicaoHTTP("GET","checaMsg.php",true);
-}
-
-// exibe as novas mensagens
-function trataDados(){
-	var info = ajax.responseText;
-	if(info) 
-		ExibirMsg(info);
+	requisicaoHTTP("GET","checaMsg2.php",true);
 }
 
 function ExibirMsg(msg){
@@ -28,4 +21,17 @@ function ExibirMsg(msg){
 	nova.innerHTML = msg;
 	saida.appendChild(nova);
 	saida.scrollTop = 100000;  // rolagem automática
+}
+
+function NovoAtendimento() {
+	var saida = document.getElementById("texto");
+	saida.innerHTML = '';	// limpa texto do chat
+	requisicaoHTTP("GET","excluiMsg.php",true);
+}
+
+// atualiza texto do chat
+function trataDados(){
+	var info = ajax.responseText;
+	if(info) 
+		ExibirMsg(info);
 }
